@@ -1,8 +1,7 @@
 const Kahoot = require('kahoot.js-updated')
 var express = require('express')
   , bodyParser = require('body-parser');
-
-var app = express();
+  , app = express();
 
 app.use(bodyParser.json());
 
@@ -15,17 +14,12 @@ function createClient(i, name, gamePin) {
         b += Math.random() < 0.25 ? name.charAt(index).toUpperCase() : name.charAt(index)
     }
     client.join(gamePin /* Or any other kahoot game pin */, b+i);
-    client.on("joined", () => {return "joined"});
-    client.on("quizStart", quiz => {});
     client.on("questionStart", question => {
         console.log("A new question has started, answering the first answer.");
         setTimeout(() => {
             question.answer(Math.floor(Math.random()*4));
         }, Math.random() * 4)
     });
-    client.on("quizEnd", () => {
-        console.log("The quiz has ended.");
-    });    
     return client;
 } catch (e) {}
 }
@@ -37,7 +31,6 @@ app.get("/", (req, res) => {
 app.post('/start', (req, res) => {
     if (!req.body.gamePin) return res.send("gamePin not defined")
     if (!req.body.name) return res.send("name not defined")
-    console.log(req.body.gamePin)
     for (let i=0;i<15;i++) {
         setTimeout(() => {
             createClient(i, req.body.name,req.body.gamePin)
