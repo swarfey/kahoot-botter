@@ -1,92 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-darkmode@0.5.0/dist/darktheme.css"
+    />
+  </head>
+  <body class="darkbg">
+    <script src="https://unpkg.com/bootstrap-darkmode@0.5.0/dist/theme.js">
+      const themeConfig = new ThemeConfig();
+      // place customizations here
+      const themeConfig = new ThemeConfig();
+      // place customizations here
+      themeConfig.initTheme();
+      const darkSwitch = writeDarkSwitch(themeConfig);
+        config.themeChangeHandlers.push(theme => console.log(`using theme: ${theme}`));
+      themeConfig.loadTheme = () => {
+          // custom logic
+          return 'dark';
+      };
 
-<!-- saved from url=(0029)https://www.vektrix.cc/kahoot -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      themeConfig.saveTheme = theme => {
+          // custom logic
+          console.log(theme);
+      };
+    </script>
+
+
+
+    <div class="col">
+      <div class="row">
+        <input
+          type="text"
+          class="form-control lighterdark"
+          id="name"
+          placeholder="name"
+          style="width: 400px;margin-bottom: 1em;background-color: rgb(22, 24, 30)"
+          oninput="updateJSON()"
+        />
+      </div>
+      <div class="row">
+        <input
+          type="text"
+          class="form-control lighterdark"
+          id="pin"
+          placeholder="pin"
+          style="width: 400px;background-color: rgb(22, 24, 30)"
+          oninput="updateJSON()"
+        />
+      </div>
+    </div>
+
+    <!--   <table>
+            <td><input id="name" placeholder="name" style="width: 200px;" oninput="updateJSON()"></input></td>
+            <td><input id="profilbild" placeholder="profilbild" style="width: 200px;" oninput="updateJSON()"></input></td>
+            </table> -->
+
+
+
+
+    <!--                 <label for="json">JSON</label> -->
+
+
+    <button id="send" class="form-control lighterdark" onclick="send()">send</button>
+  </body>
+</html>
 <style>
-	/** 
-	select #838BD5
-	background #1e1e1e
-	foreground #272727
-	text: #808080
-	**/
+  @import "~bootstrap-darkmode/darktheme";
 
-	* {
-		font-family: 'Manrope', sans-serif;
-	}
+  
 
-	body {
-		background-color: #1e1e1e;
-	}
-
-	.mainBox {
-		border-radius: 24px;
-		color: white;
-		width: 350px;
-		height: 420px;
-		padding: 12px;
-		padding-left: 36px;
-		padding-right: 36px;
-		background-color: #272727;
-	}
-
-	.centered {
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		/* bring your own prefixes */
-		transform: translate(-50%, -50%);
-	}
-
-	.pinInput {
-		text-align: center;
-		color: white;
-		background-color: #5D5F60;
-		font-size: 20px;
-		width: 100%;
-		height: 40px;
-	}
-
-	.buttonInput {
-		cursor: pointer;
-		margin-top: 7px;
-		color: white;
-		background-color: #838BD5;
-		font-size: 20px;
-		width: 100%;
-		height: 40px;
-		border-style: none;
-	}
-
-	.otherText {
-		color: #808080;
-		font-size: 16px;
-		margin-bottom: 8px;
-	}
-
-	.bottertext {
-		margin-top: 20px;
-		font-size: 48px;
-		margin-bottom: -10px;
-	}
-	hr {
-		margin-top: 15px;
-		margin-bottom: -13px;
-		color: grey;
-	}
-	
-	h2 {
-		margin-bottom: -10px;
-	}
+  body {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+  }
+  .darkbg{
+    background-color:#0F1014;
+    color: #819595;
+  }
+  .lighterdark{
+    background-color:#16181E;
+    color: #819595;
+    border-color: #2A2E3A;
+  }
+  .lighterdark:active{
+    background-color:#383E4F;
+  }
+  .lighterdark:visited{
+    background-color:#383E4F;
+  }
 </style>
-
 <script>
-	function sendRequest() {
-		var pin = document.getElementById('pin')
+	function send() {
+		var pin = document.querySelector('#pin')
 		var _name = document.querySelector("#name")
 
 		var invalid = (isNaN(pin.value) || pin.value === '' || pin.value < 0 || pin.value != Math.round(pin.value)) ? true : _name.value == undefined || _name.value == ""
 		if (invalid) {
 			pin.value = ''
-			alert('not a valid pin!')
+			alert('invalid pin!')
 		} else {
 			var data = JSON.stringify({
 				"gamePin": pin.value,
@@ -102,7 +124,7 @@
 			}
 			});
 
-			xhr.open("POST", window.location.href+"/start");
+			xhr.open("POST", window.location.href+"start");
 			xhr.setRequestHeader("content-type", "application/json");
 			xhr.setRequestHeader("cache-control", "no-cache");
 
@@ -112,17 +134,3 @@
 	}
 
 </script>
-
-</head><body data-gr-c-s-loaded="true"><div class="mainBox centered">
-	<h1 class="bottertext">Kahoot Botter</h1>
-	<a class="otherText">this interface is skidded from VΞKTRIX#1103 | everything else is recoded by Swarfey#0001</a>
-	<input class="pinInput" placeholder="PIN" id="pin">
-	<input class="pinInput" placeholder="bot name" id="name">
-	<input type="button" class="buttonInput" onclick="sendRequest()" value="raid this!">
-	<hr>
-	<h2>How does it work?</h2>
-	<p>When you click the 'raid this' button, my server recieves your request, creates the bots, joins them to the pin, then waits for a question and answers randomly.</p>
-	<a class="otherText" href="https://pxseu.cc/kaboot">pxseu's version</a>
-	<a class="otherText" href="https://vektrix.cc/kahoot">original version</a><a class="othertext" style="float: right" href="https://www.vektrix.cc/d">his discord</a>
-</div>
-</body></html>
