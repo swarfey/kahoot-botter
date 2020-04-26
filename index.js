@@ -1,7 +1,7 @@
 const Kahoot = require('kahoot.js-updated')
 var express = require('express')
   , bodyParser = require('body-parser');
-  , app = express();
+var app = express();
 
 app.use(bodyParser.json());
 
