@@ -1,7 +1,7 @@
 const Kahoot = require('kahoot.js-updated')
-var express = require('express')
+  , express = require('express')
   , bodyParser = require('body-parser');
-var app = express();
+  , app = express();
 
 app.use(bodyParser.json());
 
@@ -38,7 +38,7 @@ app.post('/start', (req, res) => {
         }, (i*125)*Math.random()*5)
     }
 })
-
-app.listen(process.env.port || 1337, () => {
-    console.log("listening on port "+(process.env.port || 1337))
+var port = process.env.port || 1337
+app.listen(port, () => {
+    console.log("listening on port " + port)
 })
